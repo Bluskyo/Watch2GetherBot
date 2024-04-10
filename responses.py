@@ -1,6 +1,11 @@
 import requests
 import json
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+apiKey = os.getenv("W2APIKEY") 
 
 rooms = [] #Should contain tuple like = (link, date)
 
@@ -13,7 +18,7 @@ def createW2Room(ytlink="none"):
             }
 
             payload = {
-                #"w2g_api_key": "<api-key>",
+                "w2g_api_key": apiKey,
                 "share": ytlink,
                 "bg_color": "#000000",
                 "bg_opacity": "50"
@@ -25,34 +30,46 @@ def createW2Room(ytlink="none"):
 
             if response.status_code == 200:
                 data = response.json()
+
                 link = f"https://w2g.tv/rooms/{data['streamkey']}"
                 dateMade =  datetime.today() #Save room with timestamp. 
                 roomInfo = (data['streamkey'], dateMade)
 
+                today = datetime.today()
+                index = 0
+                
+                print(rooms)
+                if len(rooms) > 0:
+                    for i in rooms:
+                        delta = today - i[0]
+                        if delta.days >= 1:
+                            rooms.pop(index)
+                            
                 rooms.append(roomInfo)
-
                 return link
             else:
                 return "Error:", response.text
 
 def addToQueue(ytlink):
-    URL ="https://api.w2g.tv/rooms/" + rooms[-1][0] + "/playlists/current/playlist_items/sync_update" #get last room made.
+    URL ="https://api.w2g.tv/rooms/" + rooms[-1][0] + "/playlists/current/playlist_items/sync_update" #gets last room made.
 
-    PARAMS = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                #"w2g_api_key": "<api-key>",
-                'add_items': [{'url': ytlink, 'title': 'Hello World'}]
-            }
-    response = requests.post(url= URL, params=PARAMS)
+    data = {
+        "w2g_api_key": apiKey,
+        "add_items": [{"url": ytlink, "title": ytlink}]
+    }
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    response = requests.post(url=URL, headers=headers, json=data)
 
     if response.status_code == 200:
-        return f"Added to queue! :exclamation:"
+        return "Video added to queue:exclamation:"
     else:
         return "Error:", response.text
 
 def get_response(message):
-    p_message = message.lower()
+    p_message = message
 
     if "!w2" in p_message:
         return createW2Room(p_message)
