@@ -53,7 +53,7 @@ def get_response(message):
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\
-            ```!q <link> 'To add video to room.'```\
-             ```!w2 room 'Shows main room.'``` \
+            ```!q <link> 'Adds a video to room.'```\
+             ```!w2 room 'Shows the main room.'``` \
              ```!w2 ls 'Shows a list of all available rooms.'``` \
-             ```!w2 set <Room number> 'To change main room to specified room.'```"
+             ```!w2 set <Room number> 'Changes the main room to the specified room.'```"
