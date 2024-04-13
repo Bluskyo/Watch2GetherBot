@@ -1,13 +1,8 @@
 import requests
 import json
 from datetime import datetime
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-apiKey = os.getenv("W2APIKEY") 
-
-def createW2Room(rooms, ytlink="none"): #returns string link
+def createW2Room(apiKey, rooms, ytlink="none"): #returns string link
     url = "https://api.w2g.tv/rooms/create.json"
 
     headers = {
