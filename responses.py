@@ -52,4 +52,8 @@ def get_response(message):
         return addToQueue(apiKey, rooms, p_message[3:])
     
     if "!help" in p_message.lower():
-        return "Use the ```!w2 (optional youtube link)``` command to create a room automatically :sunglasses: \n and use ```!q (link)``` to add a video to the queue!"
+        return "```!w2 <optional Youtube link> 'Creates a room.'```\
+            ```!q <link> 'To add video to room.'```\
+             ```!w2 room 'Shows main room.'``` \
+             ```!w2 ls 'Shows a list of all available rooms.'``` \
+             ```!w2 set <Room number> 'To change main room to specified room.'```"
