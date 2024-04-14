@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from methods.createRoom import createW2Room
 from methods.queue import addToQueue
+from methods.roomCheck import runRoomCheck
 
 load_dotenv()
 apiKey = os.getenv("W2APIKEY") 
@@ -14,12 +15,16 @@ def get_response(message):
     p_message = message
     
     if "!w2 room" in p_message.lower() or "!w2 r" in p_message.lower():
+        runRoomCheck(rooms)
+
         if len(rooms) > 0:
             return "Currently using room: https://w2g.tv/rooms/" + rooms[-1][0]
         else:
             return "No rooms made! Try !w2 to make a room!"
 
     if "!w2 ls" in p_message.lower():
+        runRoomCheck(rooms)
+
         if len(rooms) > 0:
             roomsURL = ["Currently active rooms:"]
             index = 0
@@ -36,6 +41,8 @@ def get_response(message):
             return "No rooms made! Try !w2 to make a room!"
     
     if "!w2 set" in p_message[:7].lower():
+        runRoomCheck(rooms)
+
         try:
             index = int(p_message[8:]) - 1
             rooms.append(rooms[index])
@@ -46,9 +53,11 @@ def get_response(message):
             return "Index has to be a whole number! :nerd: "
         
     if "!w2" in p_message.lower():
+        runRoomCheck(rooms)
         return createW2Room(apiKey, rooms, p_message)
 
     if "!q" in p_message[:2].lower():
+        runRoomCheck(rooms)
         if len(rooms) > 0:
             try:
                 return addToQueue(apiKey, rooms, p_message[3:])

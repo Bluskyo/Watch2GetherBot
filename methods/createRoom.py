@@ -28,15 +28,6 @@ def createW2Room(apiKey, rooms, ytLink="none"): #returns string link
         dateMade =  datetime.today() #Save room with timestamp. 
         roomInfo = (data['streamkey'], dateMade)
 
-        today = datetime.today()
-        index = 0
-
-        if len(rooms) > 0:
-            for i in rooms:
-                delta = today - i[1]
-                if delta.days >= 1:
-                    rooms.pop(index)
-                    
         rooms.append(roomInfo)
         print(rooms)
         return link
