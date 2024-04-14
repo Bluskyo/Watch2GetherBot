@@ -26,7 +26,7 @@ def get_response(message):
             
             for streamKey in rooms:
                 if index == len(rooms) - 1:
-                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} <-- Current active room!")
+                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} <-- Currently using this room!")
                 else: 
                     roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]}")
                 index += 1
