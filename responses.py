@@ -49,10 +49,13 @@ def get_response(message):
         return createW2Room(apiKey, rooms, p_message)
 
     if "!q" in p_message[:2].lower():
-        try:
-            return addToQueue(apiKey, rooms, p_message[3:])
-        except IndexError:
-            return "Could not find the video! :scream:"
+        if len(rooms) > 0:
+            try:
+                return addToQueue(apiKey, rooms, p_message[3:])
+            except IndexError:
+                return f"Could not find the video! :scream:"
+        else:
+            return f"No active rooms found! Currently active rooms: {len(rooms)}"
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\
