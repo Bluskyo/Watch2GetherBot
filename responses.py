@@ -13,7 +13,7 @@ rooms = [] #Should contain tuple like = (link, date)
 def get_response(message):
     p_message = message
 
-    if "!w2" in p_message.lower() and len(p_message) == 3:
+    if "!w2" in p_message.lower() and len(p_message) > 20:
         return createW2Room(apiKey, rooms, p_message)
     
     if "!w2 room" in p_message.lower() or "!w2 r" in p_message.lower():
@@ -48,11 +48,11 @@ def get_response(message):
         except ValueError:
             return "Index has to be a whole number! :nerd: "
 
-    if "!q" in p_message[:2]:
+    if "!q" in p_message[:2].lower():
         try:
             return addToQueue(apiKey, rooms, p_message[3:])
         except IndexError:
-            return "Could not find link!:scream:"
+            return "Could not find the video! :scream:"
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\

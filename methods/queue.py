@@ -8,7 +8,25 @@ def fetchVideoDetails(ytLink):
     youtube = build('youtube', 'v3', developerKey=apiKey)
 
     #Gets videoID from link.
-    videoId = ytLink[32:]
+
+    videoId = ""
+
+    urlParts = ytLink.split("/")
+
+    if urlParts[2] == "www.youtube.com" or urlParts[2] == "m.youtube.com":
+        idAndParam = urlParts[3].split("=")
+        if len(idAndParam[1]) == 11:
+            videoId = idAndParam[1]
+        else:
+            vidID = idAndParam[1].split("&")
+            videoId = vidID[0]
+
+    elif urlParts[2] == "youtu.be":
+        idAndParam = urlParts[3].split("?")
+        videoId = idAndParam[0]
+        
+    else:
+        return ["Error", "Error"]
 
     # Request video details
     videoResponse = youtube.videos().list(

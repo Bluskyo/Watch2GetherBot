@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-def createW2Room(apiKey, rooms, ytlink="none"): #returns string link
+def createW2Room(apiKey, rooms, ytLink="none"): #returns string link
     url = "https://api.w2g.tv/rooms/create.json"
 
     headers = {
@@ -12,7 +12,7 @@ def createW2Room(apiKey, rooms, ytlink="none"): #returns string link
 
     payload = {
         "w2g_api_key": apiKey,
-        "share": ytlink,
+        "share": ytLink,
         "bg_color": "#000000",
         "bg_opacity": "50"
     }
