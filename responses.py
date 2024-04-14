@@ -53,8 +53,6 @@ def get_response(message):
             return addToQueue(apiKey, rooms, p_message[3:])
         except IndexError:
             return "Could not find link!:scream:"
-
-        return 
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\
