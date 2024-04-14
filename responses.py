@@ -12,9 +12,6 @@ rooms = [] #Should contain tuple like = (link, date)
 
 def get_response(message):
     p_message = message
-
-    if "!w2" in p_message.lower() and len(p_message) > 20:
-        return createW2Room(apiKey, rooms, p_message)
     
     if "!w2 room" in p_message.lower() or "!w2 r" in p_message.lower():
         if len(rooms) > 0:
@@ -47,6 +44,9 @@ def get_response(message):
             return f"New current room set to: https://w2g.tv/rooms/{rooms[-1][0]}"
         except ValueError:
             return "Index has to be a whole number! :nerd: "
+        
+    if "!w2" in p_message.lower():
+        return createW2Room(apiKey, rooms, p_message)
 
     if "!q" in p_message[:2].lower():
         try:
