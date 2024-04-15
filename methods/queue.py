@@ -4,25 +4,29 @@ import re
 from googleapiclient.discovery import build
 
 def fetchVideoDetails(ytLink):
-    apiKey = os.getenv("YTAPIKEY") 
+    try:
+        apiKey = os.getenv("YTAPIKEY") 
 
-    youtube = build('youtube', 'v3', developerKey=apiKey)
+        youtube = build('youtube', 'v3', developerKey=apiKey)
 
-    findVideoID = re.search("[0-9A-Za-z_-]{10}[048AEIMQUYcgkosw]", ytLink)
+        findVideoID = re.search("[0-9A-Za-z_-]{10}[048AEIMQUYcgkosw]", ytLink)
 
-    videoID = findVideoID.group() #Chooses string matched by regex.
+        videoID = findVideoID.group() #Chooses string matched by regex.
 
-    # Request video details
-    videoResponse = youtube.videos().list(
-        part='snippet',
-        id=videoID
-    ).execute()
+        # Request video details
+        videoResponse = youtube.videos().list(
+            part='snippet',
+            id=videoID
+        ).execute()
 
-    videoTitle = videoResponse['items'][0]['snippet']['title']
-    videoThumbnail = videoResponse['items'][0]['snippet']['thumbnails']["high"]["url"]
+        videoTitle = videoResponse['items'][0]['snippet']['title']
+        videoThumbnail = videoResponse['items'][0]['snippet']['thumbnails']["high"]["url"]
 
-    return [videoTitle, videoThumbnail]
-
+        return [videoTitle, videoThumbnail]
+    except AttributeError:
+        print("Cant find details for: " + ytLink)
+        return [ytLink, ytLink]
+    
 def addToQueue(apiKey, rooms, link): #Returns string
     URL ="https://api.w2g.tv/rooms/" + rooms[-1][0] + "/playlists/current/playlist_items/sync_update" #gets last room made.
 
