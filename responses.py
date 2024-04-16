@@ -31,11 +31,10 @@ def get_response(message):
             
             for streamKey in rooms:
                 if index == len(rooms) - 1:
-                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} <-- Currently using this room!")
+                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1]}) <- Using this room!")
                 else: 
-                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]}")
+                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1]})")
                 index += 1
-
             return "\n".join(str(url) for url in roomsURL)
         else:
             return "No rooms made! Try !w2 to make a room!"
@@ -47,14 +46,16 @@ def get_response(message):
             index = int(p_message[8:]) - 1
             rooms.append(rooms[index])
             rooms.pop(index)
-
             return f"New current room set to: https://w2g.tv/rooms/{rooms[-1][0]}"
         except ValueError:
             return "Index has to be a whole number! :nerd: "
         
-    if "!w2" in p_message.lower():
-        runRoomCheck(rooms)
-        return createW2Room(apiKey, rooms, p_message)
+    if "!w2" in p_message[:3].lower():
+        if len(p_message) > 3 and p_message[4:12] != "https://":
+            return None
+        else:
+            runRoomCheck(rooms)
+            return createW2Room(apiKey, rooms, p_message)
 
     if "!q" in p_message[:2].lower():
         runRoomCheck(rooms)

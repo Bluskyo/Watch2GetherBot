@@ -25,11 +25,11 @@ def createW2Room(apiKey, rooms, ytLink="none"): #returns string link
         data = response.json()
 
         link = f"https://w2g.tv/rooms/{data['streamkey']}"
-        dateMade =  datetime.today() #Save room with timestamp. 
+        dateMade =  datetime.today().replace(microsecond=0) #Save room with timestamp. 
+
         roomInfo = (data['streamkey'], dateMade)
 
         rooms.append(roomInfo)
-        print(rooms)
         return link
     else:
         return "Error:", response.text
