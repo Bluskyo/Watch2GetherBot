@@ -31,9 +31,9 @@ def get_response(message):
             
             for streamKey in rooms:
                 if index == len(rooms) - 1:
-                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1]}) <- Using this room!")
+                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1].strftime('%m/%d : %H:%M')}) <- Using this room!")
                 else: 
-                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1]})")
+                    roomsURL.append(f"{index + 1}. https://w2g.tv/rooms/{streamKey[0]} ({streamKey[1].strftime('%m/%d : %H:%M')})")
                 index += 1
             return "\n".join(str(url) for url in roomsURL)
         else:
