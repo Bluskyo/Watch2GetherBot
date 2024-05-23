@@ -49,7 +49,7 @@ async def on_raw_reaction_add(payload):
             except IndexError:
                 await send_message(channel,f"Could not find the video! :scream:")
         else:
-            print(f"No active rooms found! Currently active rooms: {len(rooms)}")
+            await send_message(channel,f"No active rooms found! Currently active rooms: {len(rooms)}")
 
 def main():
     client.run(token=token)
