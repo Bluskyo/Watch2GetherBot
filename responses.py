@@ -14,7 +14,7 @@ rooms = [] #Should contain tuple like = (link, date)
 def get_response(message):
     p_message = message
     
-    if "!w2 room" in p_message.lower() or "!w2 r" in p_message.lower():
+    if "!w2 room" in p_message.lower() or "!w2 r" in p_message.lower() or "!w2 c" in p_message.lower():
         runRoomCheck(rooms)
 
         if len(rooms) > 0:
@@ -61,7 +61,7 @@ def get_response(message):
         runRoomCheck(rooms)
         if len(rooms) > 0:
             try:
-                return addToQueue(apiKey, rooms, p_message[3:])
+                return f'"{addToQueue(apiKey, rooms, p_message[3:])}" added to queue! :rocket:' 
             except IndexError:
                 return f"Could not find the video! :scream:"
         else:
@@ -69,7 +69,10 @@ def get_response(message):
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\
-            ```!q <link> 'Adds a video to room.'```\
-             ```!w2 room 'Shows the main room.'``` \
+            ```!q <link> or 🚀 reaction 'Adds a video to room.'```\
+             ```!w2 room / r / c 'Shows the main room.'``` \
              ```!w2 ls 'Shows a list of all available rooms.'``` \
              ```!w2 set <Room number> 'Changes the main room to the specified room.'```"
+    
+    if "!info" in p_message.lower():
+        return "Watch2Getherbot Version: 1.5 :mouse:"

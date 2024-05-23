@@ -36,12 +36,14 @@ def addToQueue(apiKey, rooms, link): #Returns string
         data = {
         "w2g_api_key": apiKey,
         "add_items": [{"url": link, "title":link}]
-    }
+        }
+        title = link
     else:
         data = {
             "w2g_api_key": apiKey,
             "add_items": [{"url": link, "title": videoInfo[0], "thumb": videoInfo[1]}]
         }
+        title = videoInfo[0]
 
     headers = {
         'Accept': 'application/json',
@@ -50,6 +52,6 @@ def addToQueue(apiKey, rooms, link): #Returns string
     response = requests.post(url=URL, headers=headers, json=data)
 
     if response.status_code == 200:
-        return "Video added to queue:exclamation:"
+        return title
     else:
         return "Error:", response.text
