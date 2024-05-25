@@ -18,7 +18,7 @@ A Discord Bot for creating Watch2Gether rooms automatically.
    This bot will need "Send message", "Read Message History" and "Add Reactions" permissions.
 4. Go to https://w2g.tv/en/account/edit_user/ to get the watch2gether api key. (Requires an account).
 
-Optional (Needed for fetching thumbnail images.)
+<strong> Optional (Needed for fetching thumbnail images): </strong> <br>
 Go to https://console.cloud.google.com/apis and make a "YouTube Data API v3" api key.
 
 ### Docker Container
