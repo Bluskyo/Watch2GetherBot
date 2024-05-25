@@ -9,8 +9,7 @@ A Discord Bot for creating Watch2Gether rooms automatically.
 `!w2 set` : <Room number> Changes the main room to the specified room. <br>
 
 ### Demo
-
-![demo](https://github.com/Bluskyfishing/Watch2GetherBot/assets/121456599/1d303e5f-6e5b-4d01-a65b-543f7e1cac6f)
+<img src="https://github.com/Bluskyfishing/Watch2GetherBot/assets/121456599/1d303e5f-6e5b-4d01-a65b-543f7e1cac6f" width="300" height="500">
 
 ## Getting Started
 ### API Keys and tokens
