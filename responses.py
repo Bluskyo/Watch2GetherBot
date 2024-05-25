@@ -61,7 +61,7 @@ def get_response(message):
         runRoomCheck(rooms)
         if len(rooms) > 0:
             try:
-                return f'"{addToQueue(apiKey, rooms, p_message[3:])}" added to queue! :rocket:' 
+                return f'"{addToQueue(apiKey, rooms, p_message[3:])}" added to queue! :white_check_mark:' 
             except IndexError:
                 return f"Could not find the video! :scream:"
         else:
