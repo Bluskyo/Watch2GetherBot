@@ -1,5 +1,5 @@
 # Watch2GetherBot
-A Discord Bot for creating Watch2Gether rooms automatically.
+A Discord Bot for creating Watch2Gether rooms automatically, and adding videos to the the room through discord chat.
 
 ### Supported Commands: <br>
 `!w2 <optional Youtube link>` : Creates a room.           
