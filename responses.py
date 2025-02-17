@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 
-from methods.createRoom import createW2Room
+from methods.createRoom import createRoom
 from methods.queue import addToQueue
 from methods.roomCheck import runRoomCheck
 
@@ -55,17 +55,21 @@ def get_response(message):
             return None
         else:
             runRoomCheck(rooms)
-            return createW2Room(apiKey, rooms, p_message)
+            return createRoom(apiKey, rooms, p_message)
 
     if "!q" in p_message[:2].lower():
         runRoomCheck(rooms)
-        if len(rooms) > 0:
-            try:
-                return f'"{addToQueue(apiKey, rooms, p_message[3:])}" added to queue! :white_check_mark:' 
-            except IndexError:
-                return f"Could not find the video! :scream:"
+
+        if "https://" in p_message:
+            if rooms:
+                linkToAdd = addToQueue(apiKey, rooms, p_message)
+                return f'"{linkToAdd}" added to queue! :rocket:'
+            else:
+                link = createRoom(apiKey, rooms, p_message)
+                linkToAdd = addToQueue(apiKey, rooms, p_message)
+                return f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: : {link}\n" + f"'{linkToAdd}' added to queue! :rocket:"
         else:
-            return f"No active rooms found! Currently active rooms: {len(rooms)}"
+            return f"\n'{p_message}' does not contain a link! :sneezing_face:"
     
     if "!help" in p_message.lower():
         return "```!w2 <optional Youtube link> 'Creates a room.'```\
@@ -74,5 +78,5 @@ def get_response(message):
              ```!w2 ls 'Shows a list of all available rooms.'``` \
              ```!w2 set <Room number> 'Changes the main room to the specified room.'```"
     
-    if "!info" in p_message.lower():
-        return "Watch2Getherbot Version: 1.5 :mouse:"
+    if "!ver" in p_message.lower():
+        return "Version: 1.6 :koala:"
