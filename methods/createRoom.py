@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-def createW2Room(apiKey, rooms, ytLink="none"): #returns string link
+def createRoom(apiKey, rooms, ytLink="none"): #returns string link
     url = "https://api.w2g.tv/rooms/create.json"
 
     headers = {
