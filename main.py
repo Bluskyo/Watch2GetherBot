@@ -52,8 +52,7 @@ async def on_raw_reaction_add(payload):
             else:
                 link = createRoom(apiKey, rooms, message.content)
                 linkToAdd = addToQueue(apiKey, rooms, message.content)
-                await send_message(channel, f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: : {link}\n" + 
-                                   f"'{linkToAdd}' added to queue! :rocket:")
+                await send_message(channel, f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: {link}\n'{linkToAdd}' added to queue! :rocket:")
         else:
             await send_message(channel, f"\n'{message.content}' does not contain a link! :sneezing_face:")
 

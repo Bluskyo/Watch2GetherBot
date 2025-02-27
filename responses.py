@@ -67,7 +67,7 @@ def get_response(message):
             else:
                 link = createRoom(apiKey, rooms, p_message)
                 linkToAdd = addToQueue(apiKey, rooms, p_message)
-                return f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: : {link}\n" + f"'{linkToAdd}' added to queue! :rocket:"
+                return f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: {link}\n'{linkToAdd}' added to queue!"
         else:
             return f"\n'{p_message}' does not contain a link! :sneezing_face:"
     
