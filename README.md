@@ -15,7 +15,10 @@ A Discord Bot for creating Watch2Gether rooms automatically, and adding videos t
 ### API Keys and tokens
 1. Create a .env file to safely store the api keys and bot token in the same directory as the dotfiles.
 2. Go to https://discord.com/developers/applications to create a discord bot.
-   This bot will need "Send message", "Read Message History" and "Add Reactions" permissions.
+   This bot will need these permissions:
+   1. Send message
+   2. Read Message History
+   3. Add Reactions 
 4. Go to https://w2g.tv/en/account/edit_user/ to get the watch2gether api key. (Requires an account).
 
 <strong> Optional (Needed for fetching thumbnail images): </strong> <br>
