@@ -78,4 +78,4 @@ def get_response(message):
              ```!w2 set <Room number> 'Changes the main room to the specified room.'```"
     
     if "!ver" in p_message.lower():
-        return "Version: 2.0.0 🐳"
+        return "Version: 2.0.1 🐳"

@@ -14,7 +14,7 @@ from methods.createRoom import createRoom
 
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN") #Gets token from .env file.
-apiKey = os.getenv("W2_API")
+apiKey = os.getenv("W2G_API")
 
 intents = Intents.default()
 intents.message_content = True

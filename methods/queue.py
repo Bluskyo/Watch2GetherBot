@@ -5,24 +5,25 @@ from googleapiclient.discovery import build
 
 def fetchVideoDetails(ytLink):
     try:
-        apiKey = os.getenv("YT_API") 
+        apiKey = os.getenv("YT_API")
 
-        youtube = build('youtube', 'v3', developerKey=apiKey)
+        if apiKey:
+            youtube = build('youtube', 'v3', developerKey=apiKey)
+            findVideoID = re.search("[0-9A-Za-z_-]{10}[048AEIMQUYcgkosw]", ytLink)
+            videoID = findVideoID.group() #Chooses string matched by regex.
 
-        findVideoID = re.search("[0-9A-Za-z_-]{10}[048AEIMQUYcgkosw]", ytLink)
+            # Request video details
+            videoResponse = youtube.videos().list(
+                part='snippet',
+                id=videoID
+            ).execute()
 
-        videoID = findVideoID.group() #Chooses string matched by regex.
+            videoTitle = videoResponse['items'][0]['snippet']['title']
+            videoThumbnail = videoResponse['items'][0]['snippet']['thumbnails']["high"]["url"]
 
-        # Request video details
-        videoResponse = youtube.videos().list(
-            part='snippet',
-            id=videoID
-        ).execute()
-
-        videoTitle = videoResponse['items'][0]['snippet']['title']
-        videoThumbnail = videoResponse['items'][0]['snippet']['thumbnails']["high"]["url"]
-
-        return [videoTitle, videoThumbnail]
+            return [videoTitle, videoThumbnail]
+        else:
+            return [ytLink, ytLink]
     except AttributeError:
         print("Cant find details for: " + ytLink)
         return [ytLink, ytLink]
