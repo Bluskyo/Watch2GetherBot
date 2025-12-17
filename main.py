@@ -1,16 +1,20 @@
-from discord import Intents, Client, Message
-from responses import get_response
+import time
 import os
+import discord
+import asyncio
+
+from discord import Intents, Client, Message
 from dotenv import load_dotenv
 
+from roomState import rooms
+from responses import get_response
 from methods.queue import addToQueue
 from methods.roomCheck import runRoomCheck
-from responses import rooms
 from methods.createRoom import createRoom
 
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN") #Gets token from .env file.
-apiKey = os.getenv("W2APIKEY") 
+apiKey = os.getenv("W2_API")
 
 intents = Intents.default()
 intents.message_content = True
@@ -21,6 +25,18 @@ client = Client(intents=intents)
 @client.event
 async def on_ready():
     print(f"{client.user} is now running!")
+    await set_bot_status("!w2 to create a room!")
+
+    while True:
+        await asyncio.sleep(5)
+        if (len(rooms) >= 1):
+            await set_bot_status("w2g room is open! 🚪")
+        else:
+            await set_bot_status("!w2 to create a room!")
+
+async def set_bot_status(text):
+    game = discord.Game(text)
+    await client.change_presence(status=discord.Status.online, activity=game)
 
 async def send_message(channel, content):
     try:
@@ -47,15 +63,14 @@ async def on_raw_reaction_add(payload):
 
         if "https://" in message.content:
             if rooms:
-                linkToAdd = addToQueue(apiKey, rooms, message.content)
-                await send_message(channel, f'"{linkToAdd}" added to queue! :rocket:')
+                videoTitle = addToQueue(apiKey, rooms, message.content)
+                await send_message(channel, f'"{videoTitle}" added to queue! :rocket:')
             else:
                 link = createRoom(apiKey, rooms, message.content)
-                linkToAdd = addToQueue(apiKey, rooms, message.content)
-                await send_message(channel, f"No active rooms found! :scream:\nHere's a new room for you :face_holding_back_tears::sparkles: {link}\n'{linkToAdd}' added to queue! :rocket:")
+                videoTitle = addToQueue(apiKey, rooms, message.content)
+                await send_message(channel, f'No active rooms found! :scream:\nHeres a new room for you :face_holding_back_tears::sparkles: {link}\n"{videoTitle}" added to queue! :rocket:')
         else:
             await send_message(channel, f"\n'{message.content}' does not contain a link! :sneezing_face:")
-
 
 def main():
     client.run(token=token)

@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 
 def fetchVideoDetails(ytLink):
     try:
-        apiKey = os.getenv("YTAPIKEY") 
+        apiKey = os.getenv("YT_API") 
 
         youtube = build('youtube', 'v3', developerKey=apiKey)
 

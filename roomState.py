@@ -1,0 +1,1 @@
+rooms = [] #Should contain tuple like = (link, date)
