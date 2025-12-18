@@ -14,8 +14,6 @@ def get_response(message):
     p_message = message.strip()
 
     if "!q" in p_message[:2]:
-        runRoomCheck(rooms)
-
         if "https://" in p_message:
             if rooms:
                 videoTitle = addToQueue(apiKey, rooms, p_message[3:])
@@ -28,15 +26,12 @@ def get_response(message):
             return f"\n'{p_message}' does not contain a link! :sneezing_face:"
 
     if "!w2 c" in p_message.lower():
-        runRoomCheck(rooms)
-
         if len(rooms) > 0:
             return "Currently using room: https://w2g.tv/rooms/" + rooms[-1][0]
         else:
             return "No rooms made! Try !w2 to make a room!"
 
     if "!w2 ls" in p_message.lower():
-        runRoomCheck(rooms)
 
         if len(rooms) > 0:
             roomsURL = ["Currently active rooms:"]
@@ -53,8 +48,6 @@ def get_response(message):
             return "No rooms made! Try !w2 to make a room!"
 
     if "!w2 set" in p_message.lower():
-        runRoomCheck(rooms)
-
         try:
             index = int(p_message[8:]) - 1
             rooms.append(rooms[index])
@@ -67,7 +60,6 @@ def get_response(message):
         if len(p_message) > 3 and p_message[4:12] != "https://":
             return None
         else:
-            runRoomCheck(rooms)
             return createRoom(apiKey, rooms, p_message)
 
     if "!help" in p_message.lower():

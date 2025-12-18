@@ -13,7 +13,7 @@ from methods.roomCheck import runRoomCheck
 from methods.createRoom import createRoom
 
 load_dotenv()
-token = os.getenv("DISCORD_TOKEN") #Gets token from .env file.
+token = os.getenv("DISCORD_TOKEN")
 apiKey = os.getenv("W2G_API")
 
 intents = Intents.default()
@@ -29,6 +29,7 @@ async def on_ready():
 
     while True:
         await asyncio.sleep(5)
+        runRoomCheck(rooms)
         if (len(rooms) >= 1):
             await set_bot_status("w2g room is open! 🚪")
         else:
@@ -58,8 +59,6 @@ async def on_raw_reaction_add(payload):
         guild = client.get_guild(payload.guild_id)
         channel = guild.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
-        
-        runRoomCheck(rooms)
 
         if "https://" in message.content:
             if rooms:
